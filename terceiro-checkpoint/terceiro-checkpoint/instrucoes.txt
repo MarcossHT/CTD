@@ -1,0 +1,4 @@
+Bom dia/tarde/noite, Prodessora!
+
+Simplesmente rode o arquivo curso.js XD, creio que irá funcionar.
+Para acessar a resposta da questão sete é necessário descometar a linha 3 do arquivo curso.js e comentar a linha 1. Assim creio que irá rodar XD.
