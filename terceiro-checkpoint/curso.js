@@ -9,49 +9,46 @@ let curso = {
     notaDeAprovacao: 7,
     faltasMax: 5,
     alunos: listaAlunos,
-    alunosAprovados: [],
-    alunosReprovados: [],
+    alunosStats: [],
 
     addAluno: function(aluno) {
         listaAlunos.push(aluno)
     },
    aprovAluno: function(pessoa) {
-       let alunoEncontrado = this.alunos.find((alunos => alunos.nome === pessoa.nome))
-       if(alunoEncontrado === pessoa) { 
-            if (alunoEncontrado.somaFalta() === this.faltasMax) {
-                if (alunoEncontrado.media() > this.notaDeAprovacao /10 + this.notaDeAprovacao) {
-                    return true
+       for (let i = 0; i < this.alunos.length; i++) {
+           if (this.alunos[i] === pessoa) {
+               if (this.alunos[i].somaFalta() === this.faltasMax) {
+                   if (this.alunos[i].media() > this.notaDeAprovacao / 10 + this.notaDeAprovacao) {
+                       return true
+                   } else {
+                       return false
+                   }
+               } else if (this.alunos[i].media() >= this.notaDeAprovacao && this.alunos[i].somaFalta() < this.faltasMax) {
+                   return true
+               } else {
+                   return false
+               }
+           } 
+       }
+    },
+    listagemAlunos: function(lista) {
+        for (let i = 0; i < lista.length; i++) {
+                if (lista[i].somaFalta() === this.faltasMax) {
+                    if (lista[i].media() > this.notaDeAprovacao / 10 + this.notaDeAprovacao) {
+                         this.alunosStats.push(true)
                     } else {
-                        return false
+                         this.alunosStats.push(false)
                     } 
-            } else if (alunoEncontrado.somaFalta() < this.faltasMax && alunoEncontrado.media() >= this.notaDeAprovacao) {
-                return true
-            } else {
-                return false
-            }
-        } else {
-            return console.log("Aluno não encontrado")
-        }
-    },
-    listaAprovados: function() {
-        for (var i = 0; i < this.alunos.length; i++) {
-            if (this.aprovAluno(this.alunos[i])) {
-                this.alunosAprovados.push(this.alunos[i])
-            }
-        }
-    },
-    listaReprovados: function() {
-        for (var i = 0; i < this.alunos.length; i++) {
-            if (!this.aprovAluno(this.alunos[i])) {
-                this.alunosReprovados.push(this.alunos[i])
-            }
+                } else if (lista[i].media() >= this.notaDeAprovacao && lista[i].somaFalta() < this.faltasMax) {
+                     this.alunosStats.push(true)
+                } else {
+                     this.alunosStats.push(false)
+                }
         }
     }
     
 }
 curso.addAluno(roberto)
 console.log(curso.aprovAluno(roberto))
-curso.listaAprovados()
-curso.listaReprovados()
-console.log(curso.alunosAprovados)
-console.log(curso.alunosReprovados)
+curso.listagemAlunos(listaAlunos)
+console.log(curso.alunosStats)
